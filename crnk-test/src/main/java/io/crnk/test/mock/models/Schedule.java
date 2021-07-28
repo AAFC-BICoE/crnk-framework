@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.crnk.core.resource.annotations.JsonApiId;
 import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiRelationId;
@@ -49,6 +50,9 @@ public class Schedule {
     private boolean delayed;
 
     private Map<String, String> customData;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<String> notes;
 
     public ScheduleStatus getStatus() {
         return status;
@@ -140,6 +144,14 @@ public class Schedule {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public List<String> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<String> notes) {
+        this.notes = notes;
     }
 
     public Map<String, String> getCustomData() {

@@ -24,6 +24,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import java.util.*;
+
 public class JsonApiActionResponseTest extends AbstractClientTest {
 
     protected ScheduleRepository scheduleRepository;
@@ -156,5 +158,30 @@ public class JsonApiActionResponseTest extends AbstractClientTest {
         DocumentFilterContext actionContext = contexts.getAllValues().get(1);
         Assert.assertEquals("GET", actionContext.getMethod());
         Assert.assertTrue(actionContext.getJsonPath() instanceof ActionPath);
+    }
+
+    @Test
+    public void testJsonInclude() {
+        List<String> notes = new ArrayList<>();
+        notes.add("notes a");
+        notes.add("notes b");
+
+        Map<String, String> customData  = new HashMap<String, String>() {{
+            put("key1", "value1");
+            put("key2", "value2");
+        }};
+
+        Schedule schedule = new Schedule();
+        schedule.setId(1L);
+        schedule.setName("scheduleName");
+        schedule.setDesc("descriptionOF");
+        schedule.setNotes(notes);
+        schedule.setCustomData(customData);
+        scheduleRepository.create(schedule);
+
+        String url = getBaseUri() + "schedules/1";
+        io.restassured.response.Response response = RestAssured.get(url);
+        Assert.assertEquals(200, response.getStatusCode());
+        response.then().assertThat().body("", Matchers.equalTo("hello"));
     }
 }
