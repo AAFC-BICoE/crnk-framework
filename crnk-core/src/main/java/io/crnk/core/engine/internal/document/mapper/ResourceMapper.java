@@ -181,7 +181,7 @@ public class ResourceMapper {
 		JsonIncludeStrategy includeStrategy = field.getJsonIncludeStrategy();
 		return JsonIncludeStrategy.DEFAULT.equals(includeStrategy)
 				|| !isNullNodeValue(node) && JsonIncludeStrategy.NOT_NULL.equals(includeStrategy)
-				|| !isDefaultNodeValue(node) && JsonIncludeStrategy.NON_EMPTY.equals(includeStrategy);
+				|| !isDefaultNodeValue(node) || JsonIncludeStrategy.NON_EMPTY.equals(includeStrategy);
 	}
 
 	protected boolean isDefaultNodeValue(JsonNode node) {

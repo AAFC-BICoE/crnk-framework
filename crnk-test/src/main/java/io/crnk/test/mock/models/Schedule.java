@@ -49,10 +49,8 @@ public class Schedule {
 
     private boolean delayed;
 
-    private Map<String, String> customData;
-
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<String> notes;
+    private Map<String, String> customData;
 
     public ScheduleStatus getStatus() {
         return status;
@@ -144,14 +142,6 @@ public class Schedule {
 
     public void setDesc(String desc) {
         this.desc = desc;
-    }
-
-    public List<String> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<String> notes) {
-        this.notes = notes;
     }
 
     public Map<String, String> getCustomData() {

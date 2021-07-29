@@ -162,10 +162,6 @@ public class JsonApiActionResponseTest extends AbstractClientTest {
 
     @Test
     public void testJsonInclude() {
-        List<String> notes = new ArrayList<>();
-        notes.add("notes a");
-        notes.add("notes b");
-
         Map<String, String> customData  = new HashMap<String, String>() {{
             put("key1", "value1");
             put("key2", "value2");
@@ -175,13 +171,12 @@ public class JsonApiActionResponseTest extends AbstractClientTest {
         schedule.setId(1L);
         schedule.setName("scheduleName");
         schedule.setDesc("descriptionOF");
-        schedule.setNotes(notes);
         schedule.setCustomData(customData);
         scheduleRepository.create(schedule);
 
         String url = getBaseUri() + "schedules/1";
         io.restassured.response.Response response = RestAssured.get(url);
         Assert.assertEquals(200, response.getStatusCode());
-        response.then().assertThat().body("", Matchers.equalTo("hello"));
+        response.then().assertThat().body("data.attributes.customData", Matchers.notNullValue());
     }
 }
