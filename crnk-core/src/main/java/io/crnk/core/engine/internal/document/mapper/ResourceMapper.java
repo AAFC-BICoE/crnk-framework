@@ -181,12 +181,12 @@ public class ResourceMapper {
 		JsonIncludeStrategy includeStrategy = field.getJsonIncludeStrategy();
 		return JsonIncludeStrategy.DEFAULT.equals(includeStrategy)
 				|| !isNullNodeValue(node) && JsonIncludeStrategy.NOT_NULL.equals(includeStrategy)
-				|| !isDefaultNodeValue(node) || JsonIncludeStrategy.NON_EMPTY.equals(includeStrategy);
+				|| !isDefaultNodeValue(node) && JsonIncludeStrategy.NON_EMPTY.equals(includeStrategy);
 	}
 
 	protected boolean isDefaultNodeValue(JsonNode node) {
 		return isNullNodeValue(node) || (node.isObject() || node.isArray()) && node.size() == 0
-				|| node.asText().isEmpty() || node.isNumber() && node.asDouble() == 0d;
+				|| node.isValueNode() && node.asText().isEmpty() || node.isNumber() && node.asDouble() == 0d;
 	}
 
 	protected boolean isNullNodeValue(JsonNode node) {

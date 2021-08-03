@@ -170,7 +170,7 @@ public class JsonApiActionResponseTest extends AbstractClientTest {
         Schedule schedule = new Schedule();
         schedule.setId(1L);
         schedule.setName("scheduleName");
-        schedule.setDesc("descriptionOF");
+        schedule.setDesc("descriptionOf");
         schedule.setCustomData(customData);
         scheduleRepository.create(schedule);
 
