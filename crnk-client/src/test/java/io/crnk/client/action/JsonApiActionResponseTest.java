@@ -24,7 +24,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonApiActionResponseTest extends AbstractClientTest {
 
